@@ -1,0 +1,46 @@
+//
+//  ImageLoader.swift
+//  Appetizer
+//
+//  Created by Vivek Madhukar on 04/08/24.
+//
+
+import SwiftUI
+
+final class ImageLoader: ObservableObject {
+    @Published var image: Image? = nil
+    
+    func fetchImage(from urlString: String) {
+        NetworkManager.shared.downloadImage(from: urlString, completed: { image in
+            guard let image = image else { return }
+            DispatchQueue.main.async {
+                self.image = Image(uiImage: image)
+            }
+        })
+    }
+}
+
+struct RemoteImage: View {
+    var image: Image?
+    
+    var body: some View {
+        self.image?.resizable() ?? Image(uiImage: UIImage.sample).resizable()
+    }
+}
+
+
+struct AppetizerRemoteImage: View {
+    @StateObject var imageLoader = ImageLoader()
+    var urlString: String
+    
+    var body: some View {
+        RemoteImage(image: self.imageLoader.image)
+            .onAppear(perform: {
+                self.imageLoader.fetchImage(from: self.urlString)
+            })
+    }
+}
+
+#Preview {
+    AppetizerRemoteImage(urlString: "https://seanallen-course-backend.herokuapp.com/images/appetizers/asian-flank-steak.jpg")
+}
