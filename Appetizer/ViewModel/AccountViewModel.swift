@@ -22,7 +22,6 @@ final class AccountViewModel: ObservableObject {
             self.alertItem = AlertContext.invalidEmail
             return false
         }
-        
         return true
     }
     
