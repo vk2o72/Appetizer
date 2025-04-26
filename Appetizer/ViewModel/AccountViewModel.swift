@@ -10,6 +10,7 @@ import SwiftUI
 final class AccountViewModel: ObservableObject {
     @AppStorage("user") private var userData: Data?
     @Published var userModel = UserModel()
+    
     @Published var alertItem: AlertItem?
     
     var isValidForm: Bool {
