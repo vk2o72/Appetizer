@@ -10,7 +10,6 @@ import SwiftUI
 final class AccountViewModel: ObservableObject {
     @AppStorage("user") private var userData: Data?
     @Published var userModel = UserModel()
-    
     @Published var alertItem: AlertItem?
     
     var isValidForm: Bool {
@@ -23,7 +22,6 @@ final class AccountViewModel: ObservableObject {
             self.alertItem = AlertContext.invalidEmail
             return false
         }
-        
         return true
     }
     
