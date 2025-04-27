@@ -14,28 +14,34 @@ final class AppetizerListViewModel: ObservableObject {
     @Published var isShowingDetail: Bool = false
     @Published var selectedAppetizer: Appetizer?
     
-    func getData() {
+    @MainActor // will run the code in this func on main thread
+    func getData() async {
         self.isLoading = true
-        NetworkManager.shared.getData(completed: { result in
-            DispatchQueue.main.async {
-                self.isLoading = false
-                switch result {
-                case .success(let appetizer):
-                    self.createCellViewModels(appetizers: appetizer)
-                case .failure(let error):
-                    switch error {
-                    case .invalidURL:
-                        self.alertItem = AlertContext.invalidURL
-                    case .invalidResponse:
-                        self.alertItem = AlertContext.invalidResponse
-                    case .invalidData:
-                        self.alertItem = AlertContext.invalidData
-                    case .unableToComplete:
-                        self.alertItem = AlertContext.unableToComplete
-                    }
-                }
+        do {
+            self.isLoading = false
+            let appetizer = try await NetworkManager.shared.getData()
+            self.createCellViewModels(appetizers: appetizer)
+        } catch {
+            self.isLoading = false
+            self.handleError(error)
+        }
+    }
+    
+    private func handleError(_ error: Error) {
+        if let appError = error as? AppError {
+            switch appError {
+            case .invalidURL:
+                self.alertItem = AlertContext.invalidURL
+            case .invalidResponse:
+                self.alertItem = AlertContext.invalidResponse
+            case .invalidData:
+                self.alertItem = AlertContext.invalidData
+            case .unableToComplete:
+                self.alertItem = AlertContext.unableToComplete
             }
-        })
+        } else {
+            self.alertItem = AlertContext.unableToComplete
+        }
     }
     
     private func createCellViewModels(appetizers: [Appetizer]) {

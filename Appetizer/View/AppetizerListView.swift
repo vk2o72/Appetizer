@@ -23,8 +23,8 @@ struct AppetizerListView: View {
                 .listStyle(.plain)
                 .navigationTitle("🥗 Appetizer")
             }
-            .onAppear(perform: {
-                self.viewModel.getData()
+            .task(priority: .high, {
+                await self.viewModel.getData()
             })
             .blur(radius: self.viewModel.isShowingDetail ? 20 : 0)
             .disabled(self.viewModel.isShowingDetail)

@@ -29,9 +29,9 @@ struct OrderPreviewView: View {
                 Spacer()
                 Text("Estimated delivery: 50min")
             }
-            .onAppear(perform: {
-//                self.getData()
-            })
+            .task {
+//                await self.getData()
+            }
             .scenePadding()
             
             if self.isLoading {
@@ -42,19 +42,17 @@ struct OrderPreviewView: View {
         
     }
     
-    private func getData() {
+    @MainActor
+    private func getData() async {
         self.isLoading = true
-        NetworkManager.shared.getData(completed: { result in
-            DispatchQueue.main.async {
-                self.isLoading = false
-                switch result {
-                case .success(let appetizer):
-                    print("success")
-                case .failure(let error):
-                    break
-                }
-            }
-        })
+        do {
+            self.isLoading = false
+            let appetizer = try await NetworkManager.shared.getData()
+            print("success")
+        } catch {
+            self.isLoading = false
+            print("Error: \(error)")
+        }
     }
 }
 

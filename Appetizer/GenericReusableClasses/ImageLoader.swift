@@ -10,13 +10,12 @@ import SwiftUI
 final class ImageLoader: ObservableObject {
     @Published var image: Image? = nil
     
-    func fetchImage(from urlString: String) {
-        NetworkManager.shared.downloadImage(from: urlString, completed: { image in
-            guard let image = image else { return }
-            DispatchQueue.main.async {
-                self.image = Image(uiImage: image)
-            }
-        })
+    func fetchImage(from urlString: String) async {
+        guard let image = await NetworkManager.shared.downloadImage(from: urlString) else { return }
+        
+        await MainActor.run {
+            self.image = Image(uiImage: image)
+        }
     }
 }
 
@@ -35,8 +34,8 @@ struct AppetizerRemoteImage: View {
     
     var body: some View {
         RemoteImage(image: self.imageLoader.image)
-            .onAppear(perform: {
-                self.imageLoader.fetchImage(from: self.urlString)
+            .task(priority: .high, {
+                await self.imageLoader.fetchImage(from: self.urlString)
             })
     }
 }
