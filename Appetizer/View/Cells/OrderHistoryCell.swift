@@ -7,20 +7,6 @@
 
 import SwiftUI
 
-struct OrderHistory: Decodable {
-    let amount: String
-    let orderID: String
-    let orderDate: String
-}
-
-final class OrderHistoryCellViewModel: Identifiable {
-    private(set) var orderData: OrderHistory
-    
-    init(data: OrderHistory) {
-        self.orderData = data
-    }
-}
-
 struct OrderHistoryCell: View {
     var viewModel: OrderHistoryCellViewModel
     

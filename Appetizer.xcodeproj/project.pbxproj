@@ -28,6 +28,9 @@
 		4BB553452C57FCFF00ECE4CD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB553442C57FCFF00ECE4CD /* NetworkManager.swift */; };
 		4BD516CA2DC7C60B002D28B0 /* OrderHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD516C92DC7C60B002D28B0 /* OrderHistoryCell.swift */; };
 		4BD516CC2DC7C61E002D28B0 /* OrderHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD516CB2DC7C61E002D28B0 /* OrderHistoryView.swift */; };
+		4BD516CE2DC7D439002D28B0 /* OrderHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD516CD2DC7D439002D28B0 /* OrderHistoryViewModel.swift */; };
+		4BD516D02DC7D45F002D28B0 /* OrderHistoryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD516CF2DC7D45F002D28B0 /* OrderHistoryCellViewModel.swift */; };
+		4BD516D22DC7D498002D28B0 /* OrderHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD516D12DC7D498002D28B0 /* OrderHistory.swift */; };
 		4BE325AD2D0C3DAF00D25007 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE325AC2D0C3DAF00D25007 /* WidgetKit.framework */; };
 		4BE325AF2D0C3DAF00D25007 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE325AE2D0C3DAF00D25007 /* SwiftUI.framework */; };
 		4BE325C02D0C3DB000D25007 /* ApWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4BE325AA2D0C3DAF00D25007 /* ApWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -84,6 +87,9 @@
 		4BB553442C57FCFF00ECE4CD /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		4BD516C92DC7C60B002D28B0 /* OrderHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryCell.swift; sourceTree = "<group>"; };
 		4BD516CB2DC7C61E002D28B0 /* OrderHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryView.swift; sourceTree = "<group>"; };
+		4BD516CD2DC7D439002D28B0 /* OrderHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryViewModel.swift; sourceTree = "<group>"; };
+		4BD516CF2DC7D45F002D28B0 /* OrderHistoryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryCellViewModel.swift; sourceTree = "<group>"; };
+		4BD516D12DC7D498002D28B0 /* OrderHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistory.swift; sourceTree = "<group>"; };
 		4BE325AA2D0C3DAF00D25007 /* ApWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ApWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BE325AC2D0C3DAF00D25007 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		4BE325AE2D0C3DAF00D25007 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -150,6 +156,7 @@
 				4B43E64B2C5EB9D700D7598E /* CellViewModel */,
 				4B43E6482C5EB98200D7598E /* AppetizerListViewModel.swift */,
 				4B43E6542C6141FE00D7598E /* AccountViewModel.swift */,
+				4BD516CD2DC7D439002D28B0 /* OrderHistoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -160,6 +167,7 @@
 				4B3F7B412C45353400DC2530 /* AppetizerModel.swift */,
 				4B43E6522C613D0D00D7598E /* UserModel.swift */,
 				4B43E6582C615EEA00D7598E /* Order.swift */,
+				4BD516D12DC7D498002D28B0 /* OrderHistory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -186,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				4B43E64C2C5EB9E700D7598E /* ListCellViewModel.swift */,
+				4BD516CF2DC7D45F002D28B0 /* OrderHistoryCellViewModel.swift */,
 			);
 			path = CellViewModel;
 			sourceTree = "<group>";
@@ -390,6 +399,7 @@
 				4B43E6572C614BE000D7598E /* EmptyStateView.swift in Sources */,
 				4BD516CA2DC7C60B002D28B0 /* OrderHistoryCell.swift in Sources */,
 				4B43E6432C5E7E9C00D7598E /* LoadingView.swift in Sources */,
+				4BD516D22DC7D498002D28B0 /* OrderHistory.swift in Sources */,
 				4BE819C92C3F0560005079A0 /* AppetizerApp.swift in Sources */,
 				4B43E64D2C5EB9E700D7598E /* ListCellViewModel.swift in Sources */,
 				4BD516CC2DC7C61E002D28B0 /* OrderHistoryView.swift in Sources */,
@@ -400,11 +410,13 @@
 				4B43E6592C615EEA00D7598E /* Order.swift in Sources */,
 				4B3F7B3A2C45164A00DC2530 /* AppetizerListView.swift in Sources */,
 				4B2A3C7D2CDA190900F7EA94 /* DummyOrder.swift in Sources */,
+				4BD516CE2DC7D439002D28B0 /* OrderHistoryViewModel.swift in Sources */,
 				4B3F7B3E2C45166500DC2530 /* OrderView.swift in Sources */,
 				4B3F7B402C45169D00DC2530 /* AccountView.swift in Sources */,
 				4B2A3C7B2CD9F9DF00F7EA94 /* ShortcutEntity.swift in Sources */,
 				4B43E6532C613D0D00D7598E /* UserModel.swift in Sources */,
 				4BFD042E2C68EF7C009CF9AA /* ApButton.swift in Sources */,
+				4BD516D02DC7D45F002D28B0 /* OrderHistoryCellViewModel.swift in Sources */,
 				4B43E64F2C5EBA4D00D7598E /* ImageLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
