@@ -26,6 +26,8 @@
 		4B43E6572C614BE000D7598E /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B43E6562C614BE000D7598E /* EmptyStateView.swift */; };
 		4B43E6592C615EEA00D7598E /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B43E6582C615EEA00D7598E /* Order.swift */; };
 		4BB553452C57FCFF00ECE4CD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB553442C57FCFF00ECE4CD /* NetworkManager.swift */; };
+		4BD516CA2DC7C60B002D28B0 /* OrderHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD516C92DC7C60B002D28B0 /* OrderHistoryCell.swift */; };
+		4BD516CC2DC7C61E002D28B0 /* OrderHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD516CB2DC7C61E002D28B0 /* OrderHistoryView.swift */; };
 		4BE325AD2D0C3DAF00D25007 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE325AC2D0C3DAF00D25007 /* WidgetKit.framework */; };
 		4BE325AF2D0C3DAF00D25007 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE325AE2D0C3DAF00D25007 /* SwiftUI.framework */; };
 		4BE325C02D0C3DB000D25007 /* ApWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4BE325AA2D0C3DAF00D25007 /* ApWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -80,6 +82,8 @@
 		4B43E6562C614BE000D7598E /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		4B43E6582C615EEA00D7598E /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		4BB553442C57FCFF00ECE4CD /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		4BD516C92DC7C60B002D28B0 /* OrderHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryCell.swift; sourceTree = "<group>"; };
+		4BD516CB2DC7C61E002D28B0 /* OrderHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryView.swift; sourceTree = "<group>"; };
 		4BE325AA2D0C3DAF00D25007 /* ApWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ApWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BE325AC2D0C3DAF00D25007 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		4BE325AE2D0C3DAF00D25007 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -135,6 +139,7 @@
 				4B3F7B3F2C45169D00DC2530 /* AccountView.swift */,
 				4B3F7B3D2C45166500DC2530 /* OrderView.swift */,
 				4B43E6562C614BE000D7598E /* EmptyStateView.swift */,
+				4BD516CB2DC7C61E002D28B0 /* OrderHistoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -163,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				4B0B85C62C49856100581F96 /* ListCell.swift */,
+				4BD516C92DC7C60B002D28B0 /* OrderHistoryCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -382,9 +388,11 @@
 				4B43E6512C5FE2F200D7598E /* DetailView.swift in Sources */,
 				4BE819CB2C3F0560005079A0 /* AppetizerTabView.swift in Sources */,
 				4B43E6572C614BE000D7598E /* EmptyStateView.swift in Sources */,
+				4BD516CA2DC7C60B002D28B0 /* OrderHistoryCell.swift in Sources */,
 				4B43E6432C5E7E9C00D7598E /* LoadingView.swift in Sources */,
 				4BE819C92C3F0560005079A0 /* AppetizerApp.swift in Sources */,
 				4B43E64D2C5EB9E700D7598E /* ListCellViewModel.swift in Sources */,
+				4BD516CC2DC7C61E002D28B0 /* OrderHistoryView.swift in Sources */,
 				4B2A3C792CD9F95700F7EA94 /* Shortcuts.swift in Sources */,
 				4B0B85C72C49856100581F96 /* ListCell.swift in Sources */,
 				4BB553452C57FCFF00ECE4CD /* NetworkManager.swift in Sources */,

@@ -47,6 +47,12 @@ struct AccountView: View {
                     Toggle("Extra Nampkins", isOn: $viewModel.userModel.extranampkins)
                     Toggle("frequent Refills", isOn: $viewModel.userModel.frequentRefills)
                 }
+                Section("History") {
+                    NavigationLink("Order History", destination: {
+                        let viewModel: OrderHistoryViewModel = OrderHistoryViewModel()
+                        OrderHistoryView(viewModel: viewModel)
+                    })
+                }
             }
             .navigationTitle("🙎‍♂️ AccountView")
         }
