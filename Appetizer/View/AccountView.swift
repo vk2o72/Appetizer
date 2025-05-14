@@ -16,54 +16,61 @@ struct AccountView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            Form {
-                Section("Personal Info") {
-                    TextField("First Name", text: $viewModel.userModel.firstName)
-                        .focused($focusedTextField, equals: .firstName)
-                        .onSubmit { self.focusedTextField = .lastName }
-                        .submitLabel(.next)
-                    
-                    TextField("Last Name", text: $viewModel.userModel.lastName)
-                        .focused($focusedTextField, equals: .lastName)
-                        .onSubmit { self.focusedTextField = .email }
-                        .submitLabel(.next)
-                    
-                    TextField("Email", text: $viewModel.userModel.email)
-                        .keyboardType(.emailAddress)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
-                        .focused($focusedTextField, equals: .email)
-                        .onSubmit { self.focusedTextField = nil }
-                        .submitLabel(.continue)
-                    
-                    DatePicker("Birthday", selection: $viewModel.userModel.birthDate, displayedComponents: .date)
-                    
-                    Button("Save changes", action: {
-                        self.viewModel.saveChanges()
-                    })
+        ZStack {
+            NavigationStack {
+                Form {
+                    Section("Personal Info") {
+                        TextField("First Name", text: $viewModel.firstName)
+                            .focused($focusedTextField, equals: .firstName)
+                            .onSubmit { self.focusedTextField = .lastName }
+                            .submitLabel(.next)
+                        
+                        TextField("Last Name", text: $viewModel.lastName)
+                            .focused($focusedTextField, equals: .lastName)
+                            .onSubmit { self.focusedTextField = .email }
+                            .submitLabel(.next)
+                        
+                        TextField("Email", text: $viewModel.email)
+                            .keyboardType(.emailAddress)
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled(true)
+                            .focused($focusedTextField, equals: .email)
+                            .onSubmit { self.focusedTextField = nil }
+                            .submitLabel(.continue)
+                        
+                        Button("Save changes", action: {
+                            Task {
+                                await self.viewModel.saveChanges()
+                            }
+                        })
+                    }
+                    Section("Request") {
+                        Toggle("Extra Nampkins", isOn: $viewModel.extraNapkin)
+                        Toggle("frequent Refills", isOn: $viewModel.frequentRefill)
+                    }
+                    Section("History") {
+                        NavigationLink("Order History", destination: {
+                            let viewModel: OrderHistoryViewModel = OrderHistoryViewModel()
+                            OrderHistoryView(viewModel: viewModel)
+                        })
+                    }
                 }
-                Section("Request") {
-                    Toggle("Extra Nampkins", isOn: $viewModel.userModel.extranampkins)
-                    Toggle("frequent Refills", isOn: $viewModel.userModel.frequentRefills)
-                }
-                Section("History") {
-                    NavigationLink("Order History", destination: {
-                        let viewModel: OrderHistoryViewModel = OrderHistoryViewModel()
-                        OrderHistoryView(viewModel: viewModel)
-                    })
-                }
+                .navigationTitle("🙎‍♂️ AccountView")
             }
-            .navigationTitle("🙎‍♂️ AccountView")
+            .task(priority: .high, {
+                await self.viewModel.getUserData()
+            })
+            .alert(item: $viewModel.alertItem, content: { alertItem in
+                Alert(title: alertItem.title,
+                      message: alertItem.message,
+                      dismissButton: alertItem.dismissButton)
+            })
+            
+            if self.viewModel.isLoading {
+                LoadingView()
+                    .frame(width: 300, height: 200)
+            }
         }
-        .onAppear(perform: {
-            self.viewModel.retrieveUserData()
-        })
-        .alert(item: $viewModel.alertItem, content: { alertItem in
-            Alert(title: alertItem.title,
-                  message: alertItem.message,
-                  dismissButton: alertItem.dismissButton)
-        })
     }
 }
 

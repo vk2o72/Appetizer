@@ -8,10 +8,10 @@
 import Foundation
 
 struct UserModel: Codable {
-    var firstName = ""
-    var lastName = ""
-    var email = ""
-    var birthDate = Date()
-    var extranampkins = false
-    var frequentRefills = false
+    var firstName: String?
+    var lastName: String?
+    var email: String?
+    var birthDate: Date?
+    var extraNapkin: Bool?
+    var frequentRefills: Bool?
 }

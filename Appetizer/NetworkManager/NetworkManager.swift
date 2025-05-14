@@ -21,15 +21,25 @@ final class NetworkManager {
     private init() {}
     
     func getData() async throws ->  [Appetizer] {
-        guard let url = URL(string: "https://seanallen-course-backend.herokuapp.com/swiftui-fundamentals/appetizers") else {
+        guard let url = URL(string: "http://localhost:3000/foodItems") else {
             throw AppError.invalidURL
         }
         
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
         do {
-            let (data, response) = try await URLSession.shared.data(for: URLRequest(url: url))
+            let (data, response) = try await URLSession.shared.data(for: request)
             
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                 throw AppError.invalidResponse
+            }
+            
+            if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+               let prettyData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted),
+               let prettyString = String(data: prettyData, encoding: .utf8) {
+                print("Raw response JSON: \(prettyString)")
+            } else {
+                print("Failed to convert data to string")
             }
             
             do {
@@ -39,6 +49,90 @@ final class NetworkManager {
             } catch {
                 throw AppError.invalidData
             }
+        } catch {
+            throw AppError.unableToComplete
+        }
+    }
+    
+    func getUserData() async throws ->  UserModel {
+        guard let url = URL(string: "http://localhost:3000/getuserdata") else {
+            throw AppError.invalidURL
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        let parameters: [String: Any] = [ "email": "vivekmadhukar05@gmail.com" ]
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: .fragmentsAllowed)
+            request.httpBody = jsonData
+            
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                throw AppError.invalidResponse
+            }
+            
+            if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+               let prettyData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted),
+               let prettyString = String(data: prettyData, encoding: .utf8) {
+                print("Raw response JSON: \(prettyString)")
+            } else {
+                print("Failed to convert data to string")
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let decodedResponse = try decoder.decode(UserModel.self, from: data)
+                return decodedResponse
+            } catch {
+                throw AppError.invalidData
+            }
+        } catch {
+            throw AppError.unableToComplete
+        }
+    }
+    
+    func saveUserData(user: UserModel) async throws {
+        guard let url = URL(string: "http://localhost:3000/updateuserdata") else {
+            throw AppError.invalidURL
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        let parameters: [String: Any] = [
+            "email": user.email as Any,
+            "firstName": user.firstName as Any,
+            "lastName": user.lastName as Any,
+            "extraNapkin": user.extraNapkin as Any,
+            "frequentRefills": user.frequentRefills as Any
+        ]
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: .fragmentsAllowed)
+            request.httpBody = jsonData
+            
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                throw AppError.invalidResponse
+            }
+            
+            if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+               let prettyData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted),
+               let prettyString = String(data: prettyData, encoding: .utf8) {
+                print("Raw response JSON: \(prettyString)")
+            } else {
+                print("Failed to convert data to string")
+            }
+            
+            print("User saved successfully status code: \(response.statusCode)")
         } catch {
             throw AppError.unableToComplete
         }
