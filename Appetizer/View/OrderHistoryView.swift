@@ -19,7 +19,7 @@ struct OrderHistoryView: View {
                     .listStyle(.plain)
                 }
                 .task(priority: .high, {
-                    await self.viewModel.getData()
+                    await self.viewModel.getOrderHistory()
                 })
                 if self.viewModel.isLoading {
                     LoadingView()

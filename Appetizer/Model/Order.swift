@@ -21,4 +21,14 @@ final class Order: ObservableObject {
     func deleteItem(at offset: IndexSet) {
         self.items.remove(atOffsets: offset)
     }
+    
+    func todayDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+
+        let today = Date()
+        let formattedDate = dateFormatter.string(from: today)
+        
+        return formattedDate
+    }
 }

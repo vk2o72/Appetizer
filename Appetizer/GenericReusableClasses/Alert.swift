@@ -55,5 +55,13 @@ struct AlertContext {
     static let noData           = AlertItem(title: Text("No appetizer available"),
                                             message: Text("Sorry! No item is available at the moment. Please try again after some time"),
                                             dismissButton: .default(Text("OK")))
+    
+    
+    static let orderPlaced           = AlertItem(title: Text("Order placed"),
+                                            message: Text("This is a dummy app so don't worry about the order"),
+                                            dismissButton: .default(Text("OK")))
+    static let orderNotPlaced           = AlertItem(title: Text("Order not placed"),
+                                            message: Text("Sorry! No item is available at the moment. Please try again after some time"),
+                                            dismissButton: .default(Text("OK")))
 }
 

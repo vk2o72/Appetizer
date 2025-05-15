@@ -30,7 +30,7 @@ struct AppetizerTabView: View {
             AccountView()
                 .tabItem { Label("Account", systemImage: "person") }
                 .tag(1)
-            OrderView()
+            OrderView(viewModel: OrderViewModel())
                 .tabItem { Label("Order", systemImage: "bag") }
                 .badge(self.order.items.count)
                 .tag(2)

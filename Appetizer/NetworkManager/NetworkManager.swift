@@ -138,6 +138,88 @@ final class NetworkManager {
         }
     }
     
+    func getOrderHistory() async throws ->  [OrderHistory]? {
+        guard let url = URL(string: "http://localhost:3000/getOrderHistory") else {
+            throw AppError.invalidURL
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        let parameters: [String: Any] = [ "email": "vivekmadhukar05@gmail.com" ]
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: .fragmentsAllowed)
+            request.httpBody = jsonData
+            
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                throw AppError.invalidResponse
+            }
+            
+            if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+               let prettyData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted),
+               let prettyString = String(data: prettyData, encoding: .utf8) {
+                print("Raw response JSON: \(prettyString)")
+            } else {
+                print("Failed to convert data to string")
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let decodedResponse = try decoder.decode(OrderHistoryResponse.self, from: data)
+                return decodedResponse.orderHistory
+            } catch {
+                throw AppError.invalidData
+            }
+        } catch {
+            throw AppError.unableToComplete
+        }
+    }
+    
+    func placeOrder(order: Order) async throws {
+        guard let url = URL(string: "http://localhost:3000/placeOrder") else {
+            throw AppError.invalidURL
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let totalPrice = "\(order.totalPrice)"
+        let orderDate = order.todayDate()
+        let parameters: [String: Any] = [ "email": "vivekmadhukar05@gmail.com",
+                                          "order": [
+                                            "orderDate": orderDate,
+                                            "amount": totalPrice
+                                          ]
+                                        ]
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: .fragmentsAllowed)
+            request.httpBody = jsonData
+            
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                throw AppError.invalidResponse
+            }
+            
+            if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+               let prettyData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted),
+               let prettyString = String(data: prettyData, encoding: .utf8) {
+                print("Raw response JSON: \(prettyString)")
+            } else {
+                print("Failed to convert data to string")
+            }
+        } catch {
+            throw AppError.unableToComplete
+        }
+    }
+    
     func downloadImage(from urlString: String) async -> UIImage? {
         let cacheKey = NSString(string: urlString)
         

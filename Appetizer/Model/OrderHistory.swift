@@ -12,3 +12,7 @@ struct OrderHistory: Decodable {
     let orderID: String
     let orderDate: String
 }
+
+struct OrderHistoryResponse: Decodable {
+    let orderHistory: [OrderHistory]?
+}

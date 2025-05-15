@@ -11,20 +11,13 @@ final class OrderHistoryViewModel: ObservableObject {
     @Published var cellViewModels: [OrderHistoryCellViewModel] = []
     @Published var alertItem: AlertItem?
     @Published var isLoading: Bool = false
+    
     @MainActor // will run the code in this func on main thread
-    func getData() async {
+    func getOrderHistory() async {
         self.isLoading = true
         do {
             self.isLoading = false
-            let orders: [OrderHistory] = [
-                OrderHistory(amount: "12", orderID: "1233", orderDate: "Date1"),
-                OrderHistory(amount: "25", orderID: "1234", orderDate: "Date2"),
-                OrderHistory(amount: "18", orderID: "1235", orderDate: "Date3"),
-                OrderHistory(amount: "30", orderID: "1236", orderDate: "Date4"),
-                OrderHistory(amount: "22", orderID: "1237", orderDate: "Date5"),
-              ]
-
-
+            let orders: [OrderHistory]? = try await NetworkManager.shared.getOrderHistory()
             self.createCellViewModels(orders: orders)
         } catch {
             self.isLoading = false
@@ -49,7 +42,8 @@ final class OrderHistoryViewModel: ObservableObject {
         }
     }
     
-    private func createCellViewModels(orders: [OrderHistory]) {
+    private func createCellViewModels(orders: [OrderHistory]?) {
+        guard let orders = orders else { return }
         var cellViewModels: [OrderHistoryCellViewModel] = []
         for orders in orders {
             cellViewModels.append(OrderHistoryCellViewModel(data: orders))
