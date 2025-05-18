@@ -11,6 +11,7 @@ struct AccountView: View {
     @FocusState private var focusedTextField: FormTextField?
     @StateObject var viewModel: AccountViewModel
     
+    
     enum FormTextField {
         case firstName, lastName, email
     }
