@@ -24,10 +24,10 @@ struct AppetizerTabView: View {
     
     var body: some View {
         TabView(selection: $viewModel.selectedTab) {
-            AppetizerListView()
+            AppetizerListView(viewModel: AppetizerListViewModel())
                 .tabItem { Label("Home", systemImage: "house") }
                 .tag(0)
-            AccountView()
+            AccountView(viewModel: AccountViewModel())
                 .tabItem { Label("Account", systemImage: "person") }
                 .tag(1)
             OrderView(viewModel: OrderViewModel())

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AccountView: View {
     @FocusState private var focusedTextField: FormTextField?
-    @StateObject private var viewModel = AccountViewModel()
+    @StateObject var viewModel: AccountViewModel
     
     enum FormTextField {
         case firstName, lastName, email
@@ -75,5 +75,5 @@ struct AccountView: View {
 }
 
 #Preview {
-    AccountView()
+    AccountView(viewModel: AccountViewModel())
 }
